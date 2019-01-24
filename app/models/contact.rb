@@ -1,5 +1,8 @@
 class Contact < ApplicationRecord
 
+  validates :first_name, :last_name, :email, presence: true
+  validates :email, uniqueness: true, format: /\w+@\w+\.{1}[a-zA-Z]{2,}/
+
   def friendly_updated_at
     updated_at.strftime("%A, %b %d")
     
@@ -13,4 +16,9 @@ class Contact < ApplicationRecord
  "+81 #{phone_number}"
     
   end
+
+  # def coordinates
+  #   coordinates = Geocoder.coordinates(:address)
+    
+  # end
 end

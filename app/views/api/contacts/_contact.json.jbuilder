@@ -7,7 +7,9 @@ json.phone_number contact.phone_number
 json.full_name contact.full_name
 json.bio contact.bio
 
+
 json.formatted do 
   json.updated_at contact.friendly_updated_at
   json.japan_prefix contact.japan_prefix
+  # json.address contact.address
 end
