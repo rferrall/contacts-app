@@ -1,5 +1,5 @@
 class Api::ContactsController < ApplicationController
-
+before_action :authenticate_user
 
 
   # def one_contact_method
@@ -9,8 +9,20 @@ class Api::ContactsController < ApplicationController
   # end
 
   def index
-    @contacts = Contact.all
-    render 'index.json.jbuilder'
+
+    
+    @contacts = current_user.contacts
+    render "index.json.jbuilder"
+    
+
+    # @contacts = Contact.all
+
+    # search_term = params[:search]
+    # if search_term
+    #   @contacts = Contact.where("first_name ILIKE ? OR middle_name ILIKE ? OR last_name ILIKE ? OR email LIKE ? OR phone_number LIKE ? OR bio LIKE ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%")
+    # end
+
+    # render 'index.json.jbuilder'
   end
 
   def show
@@ -28,6 +40,7 @@ class Api::ContactsController < ApplicationController
         phone_number: params["phone_number"],
         bio: params["bio"],
         # address: params["address"]
+        user_id: current_user.id
 
       )
     if params[:middle_name]
