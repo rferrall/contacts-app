@@ -12,6 +12,12 @@ before_action :authenticate_user
 
     
     @contacts = current_user.contacts
+
+    if params[:group]
+      group = Group.find_by(name: params[:group])
+      @contacts = group.contacts
+    
+    end
     render "index.json.jbuilder"
     
 
@@ -22,6 +28,7 @@ before_action :authenticate_user
     #   @contacts = Contact.where("first_name ILIKE ? OR middle_name ILIKE ? OR last_name ILIKE ? OR email LIKE ? OR phone_number LIKE ? OR bio LIKE ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%")
     # end
 
+    
     # render 'index.json.jbuilder'
   end
 

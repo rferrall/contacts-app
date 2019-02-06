@@ -5,6 +5,9 @@ class Contact < ApplicationRecord
 
   belongs_to :user
 
+  has_many :contact_groups
+  has_many :groups, through: :contact_groups
+
   def friendly_updated_at
     updated_at.strftime("%A, %b %d")
     
@@ -18,7 +21,10 @@ class Contact < ApplicationRecord
  "+81 #{phone_number}"
     
   end
-
+def group_names
+  groups.map {|group| group.name}
+  
+end
   # def coordinates
   #   coordinates = Geocoder.coordinates(:address)
     
